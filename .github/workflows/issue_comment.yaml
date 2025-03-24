@@ -1,0 +1,23 @@
+name: issue comment
+on:
+  issue_comment:
+    types: [created, edited]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        shell: python
+        run: |
+          from github import Github
+          print('hello')
+          ACCESS_TOKEN = "${{ secrets.GITHUB_TOKEN }}"
+          REPO_NAME = 'fiveD-crater/RadarSuite'
+
+          # Initialize the GitHub client
+          g = Github(ACCESS_TOKEN)
+
+          # Get the repository
+          repo = g.get_repo(REPO_NAME)
+          issues = repo.get_issues()
+          print(issues)
